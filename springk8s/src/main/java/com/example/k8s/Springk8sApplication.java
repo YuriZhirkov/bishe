@@ -10,5 +10,7 @@ public class Springk8sApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Springk8sApplication.class, args);
+
+
 	}
 }
