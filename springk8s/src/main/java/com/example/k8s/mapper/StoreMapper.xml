@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.k8s.mapper.StoreMapper">
+  <resultMap id="BaseResultMap" type="com.example.k8s.model.Store">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="storename" jdbcType="VARCHAR" property="storename" />
+    <result column="storedesc" jdbcType="VARCHAR" property="storedesc" />
+    <result column="storepicture" jdbcType="VARCHAR" property="storepicture" />
+    <result column="storetime" jdbcType="BIGINT" property="storetime" />
+    <result column="storeowercname" jdbcType="VARCHAR" property="storeowercname" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, storename, storedesc, storepicture, storetime, storeowercname
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from store
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from store
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.k8s.model.Store">
+    insert into store (id, storename, storedesc, 
+      storepicture, storetime, storeowercname
+      )
+    values (#{id,jdbcType=INTEGER}, #{storename,jdbcType=VARCHAR}, #{storedesc,jdbcType=VARCHAR}, 
+      #{storepicture,jdbcType=VARCHAR}, #{storetime,jdbcType=BIGINT}, #{storeowercname,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.k8s.model.Store">
+    insert into store
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="storename != null">
+        storename,
+      </if>
+      <if test="storedesc != null">
+        storedesc,
+      </if>
+      <if test="storepicture != null">
+        storepicture,
+      </if>
+      <if test="storetime != null">
+        storetime,
+      </if>
+      <if test="storeowercname != null">
+        storeowercname,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="storename != null">
+        #{storename,jdbcType=VARCHAR},
+      </if>
+      <if test="storedesc != null">
+        #{storedesc,jdbcType=VARCHAR},
+      </if>
+      <if test="storepicture != null">
+        #{storepicture,jdbcType=VARCHAR},
+      </if>
+      <if test="storetime != null">
+        #{storetime,jdbcType=BIGINT},
+      </if>
+      <if test="storeowercname != null">
+        #{storeowercname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.k8s.model.Store">
+    update store
+    <set>
+      <if test="storename != null">
+        storename = #{storename,jdbcType=VARCHAR},
+      </if>
+      <if test="storedesc != null">
+        storedesc = #{storedesc,jdbcType=VARCHAR},
+      </if>
+      <if test="storepicture != null">
+        storepicture = #{storepicture,jdbcType=VARCHAR},
+      </if>
+      <if test="storetime != null">
+        storetime = #{storetime,jdbcType=BIGINT},
+      </if>
+      <if test="storeowercname != null">
+        storeowercname = #{storeowercname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.k8s.model.Store">
+    update store
+    set storename = #{storename,jdbcType=VARCHAR},
+      storedesc = #{storedesc,jdbcType=VARCHAR},
+      storepicture = #{storepicture,jdbcType=VARCHAR},
+      storetime = #{storetime,jdbcType=BIGINT},
+      storeowercname = #{storeowercname,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

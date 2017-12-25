@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.k8s.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.example.k8s.model.User">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="cnname" jdbcType="VARCHAR" property="cnname" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="createTime" jdbcType="BIGINT" property="createtime" />
+    <result column="updateTime" jdbcType="BIGINT" property="updatetime" />
+    <result column="lastLoginTime" jdbcType="BIGINT" property="lastlogintime" />
+    <result column="state" jdbcType="VARCHAR" property="state" />
+    <result column="headUrl" jdbcType="VARCHAR" property="headurl" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="flagrole" jdbcType="VARCHAR" property="flagrole" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, username, password, cnname, email, mobile, createTime, updateTime, lastLoginTime, 
+    state, headUrl, address, flagrole
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from users
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from users
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.k8s.model.User" useGeneratedKeys="true" keyProperty="id" >
+    insert into users (id, username, password, 
+      cnname, email, mobile, 
+      createTime, updateTime, lastLoginTime, 
+      state, headUrl, address, 
+      flagrole)
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{cnname,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=BIGINT}, #{updatetime,jdbcType=BIGINT}, #{lastlogintime,jdbcType=BIGINT}, 
+      #{state,jdbcType=VARCHAR}, #{headurl,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{flagrole,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.k8s.model.User" useGeneratedKeys="true" keyProperty="id">
+    insert into users
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="cnname != null">
+        cnname,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="createtime != null">
+        createTime,
+      </if>
+      <if test="updatetime != null">
+        updateTime,
+      </if>
+      <if test="lastlogintime != null">
+        lastLoginTime,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="headurl != null">
+        headUrl,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="flagrole != null">
+        flagrole,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="cnname != null">
+        #{cnname,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=BIGINT},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=BIGINT},
+      </if>
+      <if test="lastlogintime != null">
+        #{lastlogintime,jdbcType=BIGINT},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="headurl != null">
+        #{headurl,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="flagrole != null">
+        #{flagrole,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.k8s.model.User">
+    update users
+    <set>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="cnname != null">
+        cnname = #{cnname,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createTime = #{createtime,jdbcType=BIGINT},
+      </if>
+      <if test="updatetime != null">
+        updateTime = #{updatetime,jdbcType=BIGINT},
+      </if>
+      <if test="lastlogintime != null">
+        lastLoginTime = #{lastlogintime,jdbcType=BIGINT},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="headurl != null">
+        headUrl = #{headurl,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="flagrole != null">
+        flagrole = #{flagrole,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.k8s.model.User">
+    update users
+    set username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      cnname = #{cnname,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=BIGINT},
+      updateTime = #{updatetime,jdbcType=BIGINT},
+      lastLoginTime = #{lastlogintime,jdbcType=BIGINT},
+      state = #{state,jdbcType=VARCHAR},
+      headUrl = #{headurl,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      flagrole = #{flagrole,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectAllUser"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from users
+  </select>
+</mapper>

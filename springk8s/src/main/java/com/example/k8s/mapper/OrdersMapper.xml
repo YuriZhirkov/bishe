@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.k8s.mapper.OrdersMapper">
+  <resultMap id="BaseResultMap" type="com.example.k8s.model.Orders">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="goodsname" jdbcType="VARCHAR" property="goodsname" />
+    <result column="price" jdbcType="VARCHAR" property="price" />
+    <result column="cnname" jdbcType="VARCHAR" property="cnname" />
+    <result column="describe" jdbcType="VARCHAR" property="describe" />
+    <result column="pictures" jdbcType="VARCHAR" property="pictures" />
+    <result column="username" jdbcType="BIGINT" property="username" />
+    <result column="goodsnumber" jdbcType="BIGINT" property="goodsnumber" />
+    <result column="date" jdbcType="BIGINT" property="date" />
+    <result column="shipaddress" jdbcType="VARCHAR" property="shipaddress" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, goodsname, price, cnname, describe, pictures, username, goodsnumber, date, shipaddress, 
+    mobile
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from orders
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from orders
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.k8s.model.Orders">
+    insert into orders (id, goodsname, price, 
+      cnname, describe, pictures, 
+      username, goodsnumber, date, 
+      shipaddress, mobile)
+    values (#{id,jdbcType=INTEGER}, #{goodsname,jdbcType=VARCHAR}, #{price,jdbcType=VARCHAR}, 
+      #{cnname,jdbcType=VARCHAR}, #{describe,jdbcType=VARCHAR}, #{pictures,jdbcType=VARCHAR}, 
+      #{username,jdbcType=BIGINT}, #{goodsnumber,jdbcType=BIGINT}, #{date,jdbcType=BIGINT}, 
+      #{shipaddress,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.k8s.model.Orders">
+    insert into orders
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="goodsname != null">
+        goodsname,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="cnname != null">
+        cnname,
+      </if>
+      <if test="describe != null">
+        describe,
+      </if>
+      <if test="pictures != null">
+        pictures,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="goodsnumber != null">
+        goodsnumber,
+      </if>
+      <if test="date != null">
+        date,
+      </if>
+      <if test="shipaddress != null">
+        shipaddress,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="goodsname != null">
+        #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="cnname != null">
+        #{cnname,jdbcType=VARCHAR},
+      </if>
+      <if test="describe != null">
+        #{describe,jdbcType=VARCHAR},
+      </if>
+      <if test="pictures != null">
+        #{pictures,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=BIGINT},
+      </if>
+      <if test="goodsnumber != null">
+        #{goodsnumber,jdbcType=BIGINT},
+      </if>
+      <if test="date != null">
+        #{date,jdbcType=BIGINT},
+      </if>
+      <if test="shipaddress != null">
+        #{shipaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.k8s.model.Orders">
+    update orders
+    <set>
+      <if test="goodsname != null">
+        goodsname = #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="cnname != null">
+        cnname = #{cnname,jdbcType=VARCHAR},
+      </if>
+      <if test="describe != null">
+        describe = #{describe,jdbcType=VARCHAR},
+      </if>
+      <if test="pictures != null">
+        pictures = #{pictures,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        username = #{username,jdbcType=BIGINT},
+      </if>
+      <if test="goodsnumber != null">
+        goodsnumber = #{goodsnumber,jdbcType=BIGINT},
+      </if>
+      <if test="date != null">
+        date = #{date,jdbcType=BIGINT},
+      </if>
+      <if test="shipaddress != null">
+        shipaddress = #{shipaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.k8s.model.Orders">
+    update orders
+    set goodsname = #{goodsname,jdbcType=VARCHAR},
+      price = #{price,jdbcType=VARCHAR},
+      cnname = #{cnname,jdbcType=VARCHAR},
+      describe = #{describe,jdbcType=VARCHAR},
+      pictures = #{pictures,jdbcType=VARCHAR},
+      username = #{username,jdbcType=BIGINT},
+      goodsnumber = #{goodsnumber,jdbcType=BIGINT},
+      date = #{date,jdbcType=BIGINT},
+      shipaddress = #{shipaddress,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
