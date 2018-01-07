@@ -10,9 +10,10 @@ public class ApiResponse implements Serializable {
     private static final long serialVersionUID = 1695144100735980507L;
 
     public static String CODE_SUCCESS = "00";//成功
-    public static String CODE_IP_ACCESS_DENIED = "01";//IP鉴权失败
     public static String CODE_PARAMETER_ERROR = "02";//参数错误
     public static String CODE_NOT_EXIST = "03";//对象不存在
+    public static String CODE_EXECUTE_ERROR = "04";//执行错误
+    public static String CODE_EXIST = "05";//对象存在
     public static String CODE_OTHER = "11";//其它错误
 
     private String code;//错误代码

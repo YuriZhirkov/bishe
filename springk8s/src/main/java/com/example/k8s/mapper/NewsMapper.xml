@@ -30,7 +30,7 @@
       #{newspicture,jdbcType=VARCHAR}, #{newtime,jdbcType=BIGINT}, #{newspush,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.example.k8s.model.News">
+  <insert id="insertSelective" parameterType="com.example.k8s.model.News" useGeneratedKeys="true" keyProperty="id">
     insert into news
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -103,4 +103,18 @@
       newspush = #{newspush,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectByNewstitle" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from news
+    where newstitle = #{newstitle,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectAllNews"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from news
+  </select>
+
 </mapper>

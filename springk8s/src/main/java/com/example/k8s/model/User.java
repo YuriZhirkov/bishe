@@ -130,4 +130,23 @@ public class User {
     public void setFlagrole(String flagrole) {
         this.flagrole = flagrole == null ? null : flagrole.trim();
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", cnname='" + cnname + '\'' +
+                ", email='" + email + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", createtime=" + createtime +
+                ", updatetime=" + updatetime +
+                ", lastlogintime=" + lastlogintime +
+                ", state='" + state + '\'' +
+                ", headurl='" + headurl + '\'' +
+                ", address='" + address + '\'' +
+                ", flagrole='" + flagrole + '\'' +
+                '}';
+    }
 }

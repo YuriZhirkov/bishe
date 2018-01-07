@@ -9,13 +9,7 @@ public class Goods {
 
     private String price;
 
-    private String specification;
-
-    private String describe;
-
     private String pictures;
-
-    private String picturedescribe;
 
     private String storage;
 
@@ -57,36 +51,12 @@ public class Goods {
         this.price = price == null ? null : price.trim();
     }
 
-    public String getSpecification() {
-        return specification;
-    }
-
-    public void setSpecification(String specification) {
-        this.specification = specification == null ? null : specification.trim();
-    }
-
-    public String getDescribe() {
-        return describe;
-    }
-
-    public void setDescribe(String describe) {
-        this.describe = describe == null ? null : describe.trim();
-    }
-
     public String getPictures() {
         return pictures;
     }
 
     public void setPictures(String pictures) {
         this.pictures = pictures == null ? null : pictures.trim();
-    }
-
-    public String getPicturedescribe() {
-        return picturedescribe;
-    }
-
-    public void setPicturedescribe(String picturedescribe) {
-        this.picturedescribe = picturedescribe == null ? null : picturedescribe.trim();
     }
 
     public String getStorage() {

@@ -7,13 +7,11 @@ public class Orders {
 
     private String price;
 
-    private String cnname;
-
     private String describe;
 
     private String pictures;
 
-    private Long username;
+    private String username;
 
     private Long goodsnumber;
 
@@ -47,14 +45,6 @@ public class Orders {
         this.price = price == null ? null : price.trim();
     }
 
-    public String getCnname() {
-        return cnname;
-    }
-
-    public void setCnname(String cnname) {
-        this.cnname = cnname == null ? null : cnname.trim();
-    }
-
     public String getDescribe() {
         return describe;
     }
@@ -71,11 +61,11 @@ public class Orders {
         this.pictures = pictures == null ? null : pictures.trim();
     }
 
-    public Long getUsername() {
+    public String getUsername() {
         return username;
     }
 
-    public void setUsername(Long username) {
+    public void setUsername(String username) {
         this.username = username;
     }
 

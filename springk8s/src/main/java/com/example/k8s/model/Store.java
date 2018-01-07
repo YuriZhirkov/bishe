@@ -11,7 +11,7 @@ public class Store {
 
     private Long storetime;
 
-    private String storeowercname;
+    private String username ;
 
     public Integer getId() {
         return id;
@@ -53,11 +53,11 @@ public class Store {
         this.storetime = storetime;
     }
 
-    public String getStoreowercname() {
-        return storeowercname;
+    public String getUsername() {
+        return username;
     }
 
-    public void setStoreowercname(String storeowercname) {
-        this.storeowercname = storeowercname == null ? null : storeowercname.trim();
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

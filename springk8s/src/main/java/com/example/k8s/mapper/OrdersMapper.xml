@@ -5,17 +5,16 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="goodsname" jdbcType="VARCHAR" property="goodsname" />
     <result column="price" jdbcType="VARCHAR" property="price" />
-    <result column="cnname" jdbcType="VARCHAR" property="cnname" />
     <result column="describe" jdbcType="VARCHAR" property="describe" />
     <result column="pictures" jdbcType="VARCHAR" property="pictures" />
-    <result column="username" jdbcType="BIGINT" property="username" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="goodsnumber" jdbcType="BIGINT" property="goodsnumber" />
     <result column="date" jdbcType="BIGINT" property="date" />
     <result column="shipaddress" jdbcType="VARCHAR" property="shipaddress" />
     <result column="mobile" jdbcType="VARCHAR" property="mobile" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, goodsname, price, cnname, describe, pictures, username, goodsnumber, date, shipaddress, 
+    id, goodsname, price, `describe`, pictures, username, goodsnumber, date, shipaddress,
     mobile
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -30,15 +29,15 @@
   </delete>
   <insert id="insert" parameterType="com.example.k8s.model.Orders">
     insert into orders (id, goodsname, price, 
-      cnname, describe, pictures, 
+      `describe`, pictures,
       username, goodsnumber, date, 
       shipaddress, mobile)
     values (#{id,jdbcType=INTEGER}, #{goodsname,jdbcType=VARCHAR}, #{price,jdbcType=VARCHAR}, 
-      #{cnname,jdbcType=VARCHAR}, #{describe,jdbcType=VARCHAR}, #{pictures,jdbcType=VARCHAR}, 
-      #{username,jdbcType=BIGINT}, #{goodsnumber,jdbcType=BIGINT}, #{date,jdbcType=BIGINT}, 
+      #{describe,jdbcType=VARCHAR}, #{pictures,jdbcType=VARCHAR},
+      #{username,jdbcType=VARCHAR}, #{goodsnumber,jdbcType=BIGINT}, #{date,jdbcType=BIGINT},
       #{shipaddress,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.example.k8s.model.Orders">
+  <insert id="insertSelective" parameterType="com.example.k8s.model.Orders" useGeneratedKeys="true" keyProperty="id">
     insert into orders
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -50,11 +49,8 @@
       <if test="price != null">
         price,
       </if>
-      <if test="cnname != null">
-        cnname,
-      </if>
       <if test="describe != null">
-        describe,
+        `describe`,
       </if>
       <if test="pictures != null">
         pictures,
@@ -85,9 +81,6 @@
       <if test="price != null">
         #{price,jdbcType=VARCHAR},
       </if>
-      <if test="cnname != null">
-        #{cnname,jdbcType=VARCHAR},
-      </if>
       <if test="describe != null">
         #{describe,jdbcType=VARCHAR},
       </if>
@@ -95,7 +88,7 @@
         #{pictures,jdbcType=VARCHAR},
       </if>
       <if test="username != null">
-        #{username,jdbcType=BIGINT},
+        #{username,jdbcType=VARCHAR},
       </if>
       <if test="goodsnumber != null">
         #{goodsnumber,jdbcType=BIGINT},
@@ -120,17 +113,14 @@
       <if test="price != null">
         price = #{price,jdbcType=VARCHAR},
       </if>
-      <if test="cnname != null">
-        cnname = #{cnname,jdbcType=VARCHAR},
-      </if>
       <if test="describe != null">
-        describe = #{describe,jdbcType=VARCHAR},
+        `describe` = #{describe,jdbcType=VARCHAR},
       </if>
       <if test="pictures != null">
         pictures = #{pictures,jdbcType=VARCHAR},
       </if>
       <if test="username != null">
-        username = #{username,jdbcType=BIGINT},
+        username = #{username,jdbcType=VARCHAR},
       </if>
       <if test="goodsnumber != null">
         goodsnumber = #{goodsnumber,jdbcType=BIGINT},
@@ -151,14 +141,25 @@
     update orders
     set goodsname = #{goodsname,jdbcType=VARCHAR},
       price = #{price,jdbcType=VARCHAR},
-      cnname = #{cnname,jdbcType=VARCHAR},
-      describe = #{describe,jdbcType=VARCHAR},
+      `describe` = #{describe,jdbcType=VARCHAR},
       pictures = #{pictures,jdbcType=VARCHAR},
-      username = #{username,jdbcType=BIGINT},
+      username = #{username,jdbcType=VARCHAR},
       goodsnumber = #{goodsnumber,jdbcType=BIGINT},
       date = #{date,jdbcType=BIGINT},
       shipaddress = #{shipaddress,jdbcType=VARCHAR},
       mobile = #{mobile,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectByGoodsname" parameterType="java.util.Map"   resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from orders
+    <where>
+      <if test="goodsname !=null">  goodsname LIKE concat(#{goodsname,jdbcType=VARCHAR}, '%')</if>
+      <if test="username !=null">  AND username LIKE concat(#{username,jdbcType=VARCHAR}, '%')</if>
+    </where>
+  </select>
+
+
 </mapper>

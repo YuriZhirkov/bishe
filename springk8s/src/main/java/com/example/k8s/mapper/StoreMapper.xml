@@ -7,10 +7,10 @@
     <result column="storedesc" jdbcType="VARCHAR" property="storedesc" />
     <result column="storepicture" jdbcType="VARCHAR" property="storepicture" />
     <result column="storetime" jdbcType="BIGINT" property="storetime" />
-    <result column="storeowercname" jdbcType="VARCHAR" property="storeowercname" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, storename, storedesc, storepicture, storetime, storeowercname
+    id, storename, storedesc, storepicture, storetime, username
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -24,13 +24,13 @@
   </delete>
   <insert id="insert" parameterType="com.example.k8s.model.Store">
     insert into store (id, storename, storedesc, 
-      storepicture, storetime, storeowercname
+      storepicture, storetime, username
       )
     values (#{id,jdbcType=INTEGER}, #{storename,jdbcType=VARCHAR}, #{storedesc,jdbcType=VARCHAR}, 
-      #{storepicture,jdbcType=VARCHAR}, #{storetime,jdbcType=BIGINT}, #{storeowercname,jdbcType=VARCHAR}
+      #{storepicture,jdbcType=VARCHAR}, #{storetime,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.example.k8s.model.Store">
+  <insert id="insertSelective" parameterType="com.example.k8s.model.Store" useGeneratedKeys="true" keyProperty="id">
     insert into store
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -48,8 +48,8 @@
       <if test="storetime != null">
         storetime,
       </if>
-      <if test="storeowercname != null">
-        storeowercname,
+      <if test="username != null">
+        username,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -68,8 +68,8 @@
       <if test="storetime != null">
         #{storetime,jdbcType=BIGINT},
       </if>
-      <if test="storeowercname != null">
-        #{storeowercname,jdbcType=VARCHAR},
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -88,8 +88,8 @@
       <if test="storetime != null">
         storetime = #{storetime,jdbcType=BIGINT},
       </if>
-      <if test="storeowercname != null">
-        storeowercname = #{storeowercname,jdbcType=VARCHAR},
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -100,7 +100,20 @@
       storedesc = #{storedesc,jdbcType=VARCHAR},
       storepicture = #{storepicture,jdbcType=VARCHAR},
       storetime = #{storetime,jdbcType=BIGINT},
-      storeowercname = #{storeowercname,jdbcType=VARCHAR}
+      username = #{username,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectByStorename" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from store
+    where storename = #{storename,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectAlltorename"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from store
+  </select>
 </mapper>
