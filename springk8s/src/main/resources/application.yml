@@ -3,8 +3,8 @@ server:
 
 spring:
     datasource:
-        name: bonsai
-        url: jdbc:mysql://192.168.43.69/bonsai
+        name: bishe
+        url: jdbc:mysql://192.168.43.59/bishe
         username: root
         password: root
         # 使用druid数据源

@@ -19,6 +19,7 @@ import org.slf4j.LoggerFactory;
  */
 @Controller
 @RequestMapping(value = "/bonsai/user")
+@CrossOrigin
 public class UserController {
     private final static Logger logger = (Logger) LoggerFactory.getLogger(UserController.class);
 

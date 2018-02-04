@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @Controller
 @RequestMapping(value = "/bonsai/news")
+@CrossOrigin
 public class NewsController {
     private final static Logger logger = (Logger) LoggerFactory.getLogger(NewsController.class);
 

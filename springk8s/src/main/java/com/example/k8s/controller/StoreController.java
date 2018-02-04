@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @Controller
 @RequestMapping(value = "/bonsai/store")
+@CrossOrigin
 public class StoreController {
     private final static Logger logger = (Logger) LoggerFactory.getLogger(StoreController.class);
 
