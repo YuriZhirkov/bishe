@@ -19,4 +19,7 @@ public interface UserService {
 
     User selectByPrimaryKey(Integer id);
 
+    User login(String username,String password);
+
+
 }

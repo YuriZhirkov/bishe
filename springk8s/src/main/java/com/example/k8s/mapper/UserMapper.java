@@ -4,6 +4,8 @@ import com.example.k8s.model.User;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
+
 @Mapper
 public interface UserMapper {
     int deleteByPrimaryKey(Integer id);
@@ -21,4 +23,6 @@ public interface UserMapper {
     List<User>  selectAllUser();
 
     User selectByUsername(String username);
+
+    User selectByUsernameAndPassword(Map<String,String> map);
 }

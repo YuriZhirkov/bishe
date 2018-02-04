@@ -3,6 +3,7 @@ package com.example.k8s.controller;
 import com.example.k8s.dto.IChangePwd;
 import com.example.k8s.dto.ISetRole;
 import com.example.k8s.dto.IUserDelete;
+import com.example.k8s.dto.IUserLogin;
 import com.example.k8s.model.User;
 import com.example.k8s.service.UserService;
 import com.example.k8s.untils.ApiResponse;
@@ -185,6 +186,25 @@ public class UserController {
         } catch (Exception e) {
             logger.error("/bonsai/user/role error, message:{}", e.getMessage());
             return new ApiResponse(ApiResponse.CODE_OTHER, "未知错误，角色修改失败");
+        }
+    }
+
+    /**
+     * 用户登录
+     * @param iUserLogin
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE,method = RequestMethod.POST)
+    public ApiResponse login(@RequestBody IUserLogin iUserLogin){
+        if (iUserLogin == null) {
+            return new ApiResponse(ApiResponse.CODE_PARAMETER_ERROR, "参数不能为空");
+        }
+        try {
+            return new SimpleApiResponse(ApiResponse.CODE_SUCCESS, "登录成功",userService.login(iUserLogin.getUsername(),iUserLogin.getPassword()));
+        } catch (Exception e) {
+            logger.error("/bonsai/user/login error, message:{}", e.getMessage());
+            return new ApiResponse(ApiResponse.CODE_OTHER, "未知错误，登录成功失败");
         }
     }
 

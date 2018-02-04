@@ -11,7 +11,9 @@ import org.springframework.stereotype.Service;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -77,6 +79,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public User selectByPrimaryKey(Integer id) {
         return userMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public User login(String username, String password) {
+        if (StringUtils.isNotBlank(username) && StringUtils.isNotBlank(password)){
+            Map<String,String> map = new HashMap<>();
+            map.put("username",username);
+            map.put("password",password);
+            User user = userMapper.selectByUsernameAndPassword(map);
+            if (user != null){
+                return user;
+            }
+        }
+        return null;
     }
 
 
