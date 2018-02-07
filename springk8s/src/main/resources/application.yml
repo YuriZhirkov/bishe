@@ -4,7 +4,7 @@ server:
 spring:
     datasource:
         name: bishe
-        url: jdbc:mysql://192.168.43.59/bishe
+        url: jdbc:mysql://192.168.43.69/bonsai
         username: root
         password: root
         # 使用druid数据源

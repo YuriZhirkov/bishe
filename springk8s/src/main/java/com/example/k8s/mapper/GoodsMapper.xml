@@ -151,12 +151,12 @@
     select
     <include refid="Base_Column_List" />
     from goods
-    where  userId = #{userid,jdbcType=INTEGER}
+    where  userId = #{userid,jdbcType=INTEGER} ORDER by price DESC
   </select>
 
   <select id="selectAllGoods"   parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from goods
+    from goods   ORDER by price DESC
   </select>
 </mapper>
