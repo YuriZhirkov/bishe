@@ -9,13 +9,17 @@ import com.example.k8s.untils.PageResult;
  */
 public interface OrdersService {
 
-    int add(Orders orders);
+    String add(Orders orders);
 
     PageResult<Orders> selectByGoodsname(IOrderList iOrderList);
 
-    void delete(Integer[] ids);
+    void delete(String[] ids);
 
     void update(Orders orders);
 
-    Orders selectByPrimaryKey(Integer id);
+    Orders selectByPrimaryKey(String id);
+
+    PageResult<Orders> selectBySellid(IOrderList iOrderList);
+
+    PageResult<Orders> selectByBuyid(IOrderList iOrderList);
 }

@@ -14,6 +14,26 @@ public class IOrderList implements Serializable {
 
     private String username;
 
+    private Integer sellid;
+
+    private Integer buyid;
+
+    public Integer getBuyid() {
+        return buyid;
+    }
+
+    public void setBuyid(Integer buyid) {
+        this.buyid = buyid;
+    }
+
+    public Integer getSellid() {
+        return sellid;
+    }
+
+    public void setSellid(Integer sellid) {
+        this.sellid = sellid;
+    }
+
     public String getName() {
         return name;
     }

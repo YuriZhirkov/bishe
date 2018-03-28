@@ -3,12 +3,13 @@ package com.example.k8s.service.impl;
 import com.example.k8s.mapper.UserMapper;
 import com.example.k8s.model.User;
 import com.example.k8s.service.UserService;
+import com.example.k8s.untils.Digests;
 import com.example.k8s.untils.PageResult;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.apache.commons.lang.StringUtils;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -36,6 +37,9 @@ public class UserServiceImpl implements UserService {
         Date date = new Date();
         user.setCreatetime(date.getTime());
         user.setUpdatetime(date.getTime());
+        //创建用户时，密码不能为空
+        String newPassword = Digests.md5(user.getPassword(), null).toLowerCase();
+        user.setPassword(newPassword);
         userMapper.insertSelective(user);
         return user.getId();
     }
@@ -73,6 +77,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void update(User user) {
+        if (StringUtils.isNotBlank(user.getPassword())){
+            String newPassword = Digests.md5(user.getPassword(), null).toLowerCase();
+            user.setPassword(newPassword);
+        }
         userMapper.updateByPrimaryKeySelective(user);
     }
 
@@ -86,7 +94,7 @@ public class UserServiceImpl implements UserService {
         if (StringUtils.isNotBlank(username) && StringUtils.isNotBlank(password)){
             Map<String,String> map = new HashMap<>();
             map.put("username",username);
-            map.put("password",password);
+            map.put("password",Digests.md5(password, null).toLowerCase());
             User user = userMapper.selectByUsernameAndPassword(map);
             if (user != null){
                 return user;

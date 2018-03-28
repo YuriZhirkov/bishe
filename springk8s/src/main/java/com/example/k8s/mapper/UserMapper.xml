@@ -15,10 +15,14 @@
     <result column="headUrl" jdbcType="VARCHAR" property="headurl" />
     <result column="address" jdbcType="VARCHAR" property="address" />
     <result column="flagrole" jdbcType="VARCHAR" property="flagrole" />
+    <result column="telephone" jdbcType="INTEGER" property="telephone" />
+    <result column="postalcode" jdbcType="VARCHAR" property="postalcode" />
+    <result column="initialmoney" jdbcType="INTEGER" property="initialmoney" />
+    <result column="surplusmoney" jdbcType="INTEGER" property="surplusmoney" />
   </resultMap>
   <sql id="Base_Column_List">
     id, username, password, cnname, email, mobile, createTime, updateTime, lastLoginTime, 
-    state, headUrl, address, flagrole
+    state, headUrl, address, flagrole,telephone,postalcode,initialmoney,surplusmoney
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -35,12 +39,13 @@
       cnname, email, mobile, 
       createTime, updateTime, lastLoginTime, 
       state, headUrl, address, 
-      flagrole)
+      flagrole,telephone,postalcode,initialmoney,surplusmoney)
     values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{cnname,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
       #{createtime,jdbcType=BIGINT}, #{updatetime,jdbcType=BIGINT}, #{lastlogintime,jdbcType=BIGINT}, 
       #{state,jdbcType=VARCHAR}, #{headurl,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
-      #{flagrole,jdbcType=VARCHAR})
+      #{flagrole,jdbcType=VARCHAR},#{telephone,jdbcType=INTEGER},#{postalcode,jdbcType=VARCHAR},
+      #{initialmoney,jdbcType=INTEGER},#{surplusmoney,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.example.k8s.model.User" useGeneratedKeys="true" keyProperty="id">
     insert into users
@@ -84,6 +89,22 @@
       <if test="flagrole != null">
         flagrole,
       </if>
+      <if test="telephone != null">
+        telephone,
+      </if>
+
+      <if test="postalcode != null">
+        postalcode,
+      </if>
+
+      <if test="initialmoney != null">
+        initialmoney,
+      </if>
+
+      <if test="surplusmoney != null">
+        surplusmoney,
+      </if>
+
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -124,6 +145,22 @@
       </if>
       <if test="flagrole != null">
         #{flagrole,jdbcType=VARCHAR},
+      </if>
+
+      <if test="telephone != null">
+        #{telephone,jdbcType=INTEGER},
+      </if>
+
+      <if test="postalcode != null">
+        #{postalcode,jdbcType=VARCHAR},
+      </if>
+
+      <if test="initialmoney != null">
+        #{initialmoney,jdbcType=INTEGER},
+      </if>
+
+      <if test="surplusmoney != null">
+        #{surplusmoney,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -166,6 +203,22 @@
       <if test="flagrole != null">
         flagrole = #{flagrole,jdbcType=VARCHAR},
       </if>
+
+      <if test="telephone != null">
+        telephone = #{telephone,jdbcType=INTEGER},
+      </if>
+
+      <if test="postalcode != null">
+        postalcode = #{postalcode,jdbcType=VARCHAR},
+      </if>
+
+      <if test="initialmoney != null">
+        initialmoney = #{initialmoney,jdbcType=INTEGER},
+      </if>
+
+      <if test="surplusmoney != null">
+        surplusmoney = #{surplusmoney,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -182,7 +235,11 @@
       state = #{state,jdbcType=VARCHAR},
       headUrl = #{headurl,jdbcType=VARCHAR},
       address = #{address,jdbcType=VARCHAR},
-      flagrole = #{flagrole,jdbcType=VARCHAR}
+      flagrole = #{flagrole,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=INTEGER},
+      postalcode = #{postalcode,jdbcType=VARCHAR},
+      initialmoney = #{initialmoney,jdbcType=INTEGER},
+      surplusmoney = #{surplusmoney,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectAllUser"  resultMap="BaseResultMap">

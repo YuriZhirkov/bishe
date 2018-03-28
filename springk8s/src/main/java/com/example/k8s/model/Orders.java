@@ -1,7 +1,7 @@
 package com.example.k8s.model;
 
 public class Orders {
-    private Integer id;
+    private String id;
 
     private String goodsname;
 
@@ -21,11 +21,81 @@ public class Orders {
 
     private String mobile;
 
-    public Integer getId() {
+    private Integer sellid;
+
+    private Integer buyid;
+
+    private Integer telephone;
+
+    private String email;
+
+    private String dispatchingaddress;
+
+    private String postalcode;
+
+    private Integer state;
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
+
+    public Integer getBuyid() {
+        return buyid;
+    }
+
+    public void setBuyid(Integer buyid) {
+        this.buyid = buyid;
+    }
+
+    public Integer getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(Integer telephone) {
+        this.telephone = telephone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getDispatchingaddress() {
+        return dispatchingaddress;
+    }
+
+    public void setDispatchingaddress(String dispatchingaddress) {
+        this.dispatchingaddress = dispatchingaddress;
+    }
+
+    public String getPostalcode() {
+        return postalcode;
+    }
+
+    public void setPostalcode(String postalcode) {
+        this.postalcode = postalcode;
+    }
+
+    public Integer getSellid() {
+        return sellid;
+    }
+
+    public void setSellid(Integer sellid) {
+        this.sellid = sellid;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 

@@ -27,6 +27,46 @@ public class User {
 
     private String flagrole;
 
+    private Integer telephone; //电话
+
+    private String postalcode;
+
+    private Integer initialmoney;
+
+    private Integer surplusmoney;
+
+    public Integer getInitialmoney() {
+        return initialmoney;
+    }
+
+    public void setInitialmoney(Integer initialmoney) {
+        this.initialmoney = initialmoney;
+    }
+
+    public Integer getSurplusmoney() {
+        return surplusmoney;
+    }
+
+    public void setSurplusmoney(Integer surplusmoney) {
+        this.surplusmoney = surplusmoney;
+    }
+
+    public String getPostalcode() {
+        return postalcode;
+    }
+
+    public void setPostalcode(String postalcode) {
+        this.postalcode = postalcode;
+    }
+
+    public Integer getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(Integer telephone) {
+        this.telephone = telephone;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -147,6 +187,8 @@ public class User {
                 ", headurl='" + headurl + '\'' +
                 ", address='" + address + '\'' +
                 ", flagrole='" + flagrole + '\'' +
+                ", telephone=" + telephone +
+                ", postalcode='" + postalcode + '\'' +
                 '}';
     }
 }

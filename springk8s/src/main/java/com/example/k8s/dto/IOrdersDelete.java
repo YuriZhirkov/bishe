@@ -7,13 +7,14 @@ public class IOrdersDelete {
 
     private static final long serialVersionUID = 3098144265674909807L;
 
-    private Integer[] ids;
+    private String[] ids;
 
-    public Integer[] getIds() {
+
+    public String[] getIds() {
         return ids;
     }
 
-    public void setIds(Integer[] ids) {
+    public void setIds(String[] ids) {
         this.ids = ids;
     }
 }

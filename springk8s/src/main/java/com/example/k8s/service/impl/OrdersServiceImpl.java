@@ -10,10 +10,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by zzg on 2018/1/1.
@@ -24,8 +21,11 @@ public class OrdersServiceImpl implements OrdersService {
     @Autowired
     private OrdersMapper ordersMapper;//这里会报错，但是并不会影响
     @Override
-    public int add(Orders orders) {
+    public String add(Orders orders) {
         Date date = new Date();
+        String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+        orders.setState(0);//未支付
+        orders.setId(uuid);
         orders.setDate(date.getTime());
         ordersMapper.insertSelective(orders);
         return orders.getId();
@@ -33,7 +33,7 @@ public class OrdersServiceImpl implements OrdersService {
 
 
     @Override
-    public void delete(Integer[] ids) {
+    public void delete(String[] ids) {
         if (ids != null && ids.length > 0){
             for (int i=0 ; i < ids.length ; i++) {
                 if (ordersMapper.selectByPrimaryKey(ids[i]) != null){
@@ -49,7 +49,7 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     @Override
-    public Orders selectByPrimaryKey(Integer id) {
+    public Orders selectByPrimaryKey(String id) {
         return ordersMapper.selectByPrimaryKey(id);
     }
 
@@ -69,6 +69,30 @@ public class OrdersServiceImpl implements OrdersService {
         map.put("goodsname",iOrderList.getName());
         map.put("username",iOrderList.getUsername());
         List<Orders> recordList  =  ordersMapper.selectByGoodsname(map);
+        PageInfo<Orders> pageInfo = new PageInfo<>(recordList);
+        pageResult.setRecordsTotal(pageInfo.getTotal());
+        pageResult.setItems(recordList);
+        return pageResult;
+    }
+
+    @Override
+    public PageResult<Orders> selectBySellid(IOrderList iOrderList) {
+        //将参数传给这个方法就可以实现物理分页了，非常简单。
+        PageResult<Orders> pageResult = new PageResult<>();
+        PageHelper.startPage(iOrderList.getPageNum(), iOrderList.getPageSize());
+        List<Orders> recordList  =  ordersMapper.selectBySellid(iOrderList.getSellid());
+        PageInfo<Orders> pageInfo = new PageInfo<>(recordList);
+        pageResult.setRecordsTotal(pageInfo.getTotal());
+        pageResult.setItems(recordList);
+        return pageResult;
+    }
+
+    @Override
+    public PageResult<Orders> selectByBuyid(IOrderList iOrderList) {
+        //将参数传给这个方法就可以实现物理分页了，非常简单。
+        PageResult<Orders> pageResult = new PageResult<>();
+        PageHelper.startPage(iOrderList.getPageNum(), iOrderList.getPageSize());
+        List<Orders> recordList  =  ordersMapper.selectByBuyid(iOrderList.getSellid());
         PageInfo<Orders> pageInfo = new PageInfo<>(recordList);
         pageResult.setRecordsTotal(pageInfo.getTotal());
         pageResult.setItems(recordList);

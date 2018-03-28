@@ -97,7 +97,7 @@ public class OrdersController {
      */
     @ResponseBody
     @RequestMapping(value = "/get/{id}", produces = MediaType.APPLICATION_JSON_VALUE,method = RequestMethod.GET)
-    public ApiResponse get(@PathVariable("id") int id){
+    public ApiResponse get(@PathVariable("id") String id){
         try {
             return new SimpleApiResponse(ApiResponse.CODE_SUCCESS, "获取订单信息成功",ordersService.selectByPrimaryKey(id));
         } catch (Exception e) {
@@ -121,6 +121,42 @@ public class OrdersController {
             return new SimpleApiResponse(ApiResponse.CODE_SUCCESS, "获取所有订单信息成功", ordersService.selectByGoodsname(iOrderList));
         } catch (Exception e) {
             logger.error("/list"+" error, message:{}", e.getMessage());
+            return new ApiResponse(ApiResponse.CODE_OTHER, "获取所有订单信息失败");
+        }
+    }
+
+    /**
+     * 通过卖家的id查询订单
+     * @param iOrderList
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/listSell", produces = MediaType.APPLICATION_JSON_VALUE,method = RequestMethod.POST)
+    public ApiResponse listSell(@RequestBody IOrderList iOrderList){
+
+        // https://www.cnblogs.com/xiaoxinwt/p/5329840.html Mybatis 的分页插件PageHelper-4.1.1的使用
+        try {
+            return new SimpleApiResponse(ApiResponse.CODE_SUCCESS, "获取所有订单信息成功", ordersService.selectBySellid(iOrderList));
+        } catch (Exception e) {
+            logger.error("/listSell"+" error, message:{}", e.getMessage());
+            return new ApiResponse(ApiResponse.CODE_OTHER, "获取所有订单信息失败");
+        }
+    }
+
+    /**
+     * 通过买家的id查询订单
+     * @param iOrderList
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/listBuy", produces = MediaType.APPLICATION_JSON_VALUE,method = RequestMethod.POST)
+    public ApiResponse listBuy(@RequestBody IOrderList iOrderList){
+
+        // https://www.cnblogs.com/xiaoxinwt/p/5329840.html Mybatis 的分页插件PageHelper-4.1.1的使用
+        try {
+            return new SimpleApiResponse(ApiResponse.CODE_SUCCESS, "获取所有订单信息成功", ordersService.selectBySellid(iOrderList));
+        } catch (Exception e) {
+            logger.error("/listSell"+" error, message:{}", e.getMessage());
             return new ApiResponse(ApiResponse.CODE_OTHER, "获取所有订单信息失败");
         }
     }

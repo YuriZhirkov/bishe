@@ -2,6 +2,11 @@ server:
   port: 30012
 
 spring:
+    mvc:
+      static-path-pattern: /**
+    resources:
+      #配置静态路径，多个可用逗号隔开
+      static-locations: file:${img.location}
     datasource:
         name: bishe
         url: jdbc:mysql://192.168.43.69/bonsai
@@ -23,6 +28,14 @@ spring:
         testOnReturn: false
         poolPreparedStatements: true
         maxOpenPreparedStatements: 20
+
+    redis:
+        host: 192.168.43.133
+        port: 6379
+        database: 0
+        pool:
+            min-idle: 5
+            max-idle: 10
 mybatis:
   #mapper-locations: classpath:mapping/*.xml
   mapper-locations: classpath:mapper/*.xml
@@ -34,3 +47,8 @@ pagehelper:
     reasonable: true
     supportMethodsArguments: true
     params: count=countSql
+
+
+#文件基础路径
+img:
+  location: C:/img/

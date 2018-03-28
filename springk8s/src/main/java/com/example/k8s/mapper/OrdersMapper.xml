@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.k8s.mapper.OrdersMapper">
   <resultMap id="BaseResultMap" type="com.example.k8s.model.Orders">
-    <id column="id" jdbcType="INTEGER" property="id" />
+    <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="goodsname" jdbcType="VARCHAR" property="goodsname" />
     <result column="price" jdbcType="VARCHAR" property="price" />
     <result column="describe" jdbcType="VARCHAR" property="describe" />
@@ -12,30 +12,39 @@
     <result column="date" jdbcType="BIGINT" property="date" />
     <result column="shipaddress" jdbcType="VARCHAR" property="shipaddress" />
     <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="sellid" jdbcType="INTEGER" property="sellid" />
+    <result column="buyid" jdbcType="INTEGER" property="buyid" />
+    <result column="telephone" jdbcType="INTEGER" property="telephone" />
+    <result column="postalcode" jdbcType="VARCHAR" property="postalcode" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="dispatchingaddress" jdbcType="VARCHAR" property="dispatchingaddress" />
+
   </resultMap>
   <sql id="Base_Column_List">
     id, goodsname, price, `describe`, pictures, username, goodsnumber, date, shipaddress,
-    mobile
+    mobile,sellid,buyid,telephone,postalcode,dispatchingaddress,email
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from orders
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from orders
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.example.k8s.model.Orders">
     insert into orders (id, goodsname, price, 
       `describe`, pictures,
       username, goodsnumber, date, 
-      shipaddress, mobile)
-    values (#{id,jdbcType=INTEGER}, #{goodsname,jdbcType=VARCHAR}, #{price,jdbcType=VARCHAR}, 
+      shipaddress, mobile,sellid,buyid,telephone,postalcode,dispatchingaddress,email)
+    values (#{id,jdbcType=VARCHAR}, #{goodsname,jdbcType=VARCHAR}, #{price,jdbcType=VARCHAR},
       #{describe,jdbcType=VARCHAR}, #{pictures,jdbcType=VARCHAR},
       #{username,jdbcType=VARCHAR}, #{goodsnumber,jdbcType=BIGINT}, #{date,jdbcType=BIGINT},
-      #{shipaddress,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR})
+      #{shipaddress,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR},#{sellid,jdbcType=INTEGER},
+      #{buyid,jdbcType=INTEGER},#{telephone,jdbcType=INTEGER},
+      #{email,jdbcType=VARCHAR},#{dispatchingaddress,jdbcType=VARCHAR},#{postalcode,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.example.k8s.model.Orders" useGeneratedKeys="true" keyProperty="id">
     insert into orders
@@ -70,10 +79,32 @@
       <if test="mobile != null">
         mobile,
       </if>
+      <if test="sellid != null">
+        sellid,
+      </if>
+      <if test="buyid != null">
+        buyid,
+      </if>
+
+      <if test="telephone != null">
+        telephone,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+
+      <if test="dispatchingaddress != null">
+        dispatchingaddress,
+      </if>
+
+      <if test="postalcode != null">
+        postalcode,
+      </if>
+
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=INTEGER},
+        #{id,jdbcType=VARCHAR},
       </if>
       <if test="goodsname != null">
         #{goodsname,jdbcType=VARCHAR},
@@ -102,6 +133,30 @@
       <if test="mobile != null">
         #{mobile,jdbcType=VARCHAR},
       </if>
+      <if test="sellid != null">
+        #{sellid,jdbcType=INTEGER},
+      </if>
+
+      <if test="buyid != null">
+        #{buyid,jdbcType=INTEGER},
+      </if>
+
+      <if test="telephone != null">
+        #{telephone,jdbcType=INTEGER},
+      </if>
+
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+
+      <if test="dispatchingaddress != null">
+        #{dispatchingaddress,jdbcType=VARCHAR},
+      </if>
+
+      <if test="postalcode != null">
+        #{postalcode,jdbcType=VARCHAR},
+      </if>
+
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.example.k8s.model.Orders">
@@ -134,8 +189,33 @@
       <if test="mobile != null">
         mobile = #{mobile,jdbcType=VARCHAR},
       </if>
+
+      <if test="sellid != null">
+        sellid = #{sellid,jdbcType=INTEGER},
+      </if>
+
+      <if test="buyid != null">
+        buyid = #{buyid,jdbcType=INTEGER},
+      </if>
+
+      <if test="telephone != null">
+        telephone = #{telephone,jdbcType=INTEGER},
+      </if>
+
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+
+      <if test="dispatchingaddress != null">
+        dispatchingaddress = #{dispatchingaddress,jdbcType=VARCHAR},
+      </if>
+
+      <if test="postalcode != null">
+        postalcode = #{postalcode,jdbcType=VARCHAR},
+      </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+
+    where id = #{id,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.example.k8s.model.Orders">
     update orders
@@ -147,8 +227,14 @@
       goodsnumber = #{goodsnumber,jdbcType=BIGINT},
       date = #{date,jdbcType=BIGINT},
       shipaddress = #{shipaddress,jdbcType=VARCHAR},
-      mobile = #{mobile,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
+      mobile = #{mobile,jdbcType=VARCHAR},
+      sellid = #{sellid,jdbcType=INTEGER},
+      buyid = #{buyid,jdbcType=INTEGER},
+      telephone = #{telephone,jdbcType=INTEGER},
+      email = #{email,jdbcType=VARCHAR},
+      dispatchingaddress = #{dispatchingaddress,jdbcType=VARCHAR},
+      postalcode = #{postalcode,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
   </update>
 
   <select id="selectByGoodsname" parameterType="java.util.Map"   resultMap="BaseResultMap">
@@ -159,6 +245,20 @@
       <if test="goodsname !=null">  goodsname LIKE concat(#{goodsname,jdbcType=VARCHAR}, '%')</if>
       <if test="username !=null">  AND username LIKE concat(#{username,jdbcType=VARCHAR}, '%')</if>
     </where>
+  </select>
+
+  <select id="selectBySellid" parameterType="java.lang.Integer"   resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from orders
+    WHERE  sellid = #{sellid,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByBuyid" parameterType="java.lang.Integer"   resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from orders
+    WHERE   buyid = #{buyid,jdbcType=INTEGER}
   </select>
 
 
