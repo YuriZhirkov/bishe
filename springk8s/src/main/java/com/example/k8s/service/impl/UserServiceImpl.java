@@ -34,6 +34,8 @@ public class UserServiceImpl implements UserService {
         if (StringUtils.isBlank(user.getHeadurl())){
             user.setHeadurl("http://172.168.5.6/tuxiang.png");
         }
+        user.setInitialmoney(50000);//初始化的金额
+        user.setSurplusmoney(50000);//剩余的金额
         Date date = new Date();
         user.setCreatetime(date.getTime());
         user.setUpdatetime(date.getTime());

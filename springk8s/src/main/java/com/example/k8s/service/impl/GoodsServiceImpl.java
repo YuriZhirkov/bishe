@@ -7,6 +7,7 @@ import com.example.k8s.service.GoodsService;
 import com.example.k8s.untils.PageResult;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -67,9 +68,16 @@ public class GoodsServiceImpl implements GoodsService {
         PageHelper.startPage(iGoodsList.getPageNum(), iGoodsList.getPageSize());
         List<Goods> recordList = new ArrayList<Goods>();
         if (iGoodsList.getUserId() != null){
+            PageHelper.startPage(iGoodsList.getPageNum(), iGoodsList.getPageSize());
             recordList  =  goodsMapper.selectAllGoodsByUserid(iGoodsList.getUserId());
         } else {
-            recordList  =  goodsMapper.selectAllGoods();
+            if (StringUtils.isNotBlank(iGoodsList.getCondition())){
+                PageHelper.startPage(iGoodsList.getPageNum(), iGoodsList.getPageSize());
+                recordList  =  goodsMapper.search(iGoodsList.getCondition());
+            }else {
+                PageHelper.startPage(iGoodsList.getPageNum(), iGoodsList.getPageSize());
+                recordList  =  goodsMapper.selectAllGoods();
+            }
         }
         PageInfo<Goods> pageInfo = new PageInfo<>(recordList);
         pageResult.setRecordsTotal(pageInfo.getTotal());

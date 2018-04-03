@@ -23,5 +23,7 @@ public interface GoodsMapper {
 
     List<Goods> selectAllGoods();
 
+    List<Goods> search(String condition);
+
     List<Goods> selectAllGoodsByUserid(Integer userId);
 }

@@ -1,6 +1,10 @@
 package com.example.k8s.model;
 
+import io.searchbox.annotations.JestId;
+
 public class Goods {
+
+    @JestId
     private Integer id;
 
     private String goodsname;
@@ -89,5 +93,35 @@ public class Goods {
 
     public void setType(String type) {
         this.type = type == null ? null : type.trim();
+    }
+
+    public Goods(Integer id, String goodsname, String detail, String price, String pictures, String storage, String soldnumber, Integer userid, String type) {
+        this.id = id;
+        this.goodsname = goodsname;
+        this.detail = detail;
+        this.price = price;
+        this.pictures = pictures;
+        this.storage = storage;
+        this.soldnumber = soldnumber;
+        this.userid = userid;
+        this.type = type;
+    }
+
+    public Goods() {
+    }
+
+    @Override
+    public String toString() {
+        return "Goods{" +
+                "id=" + id +
+                ", goodsname='" + goodsname + '\'' +
+                ", detail='" + detail + '\'' +
+                ", price='" + price + '\'' +
+                ", pictures='" + pictures + '\'' +
+                ", storage='" + storage + '\'' +
+                ", soldnumber='" + soldnumber + '\'' +
+                ", userid=" + userid +
+                ", type='" + type + '\'' +
+                '}';
     }
 }

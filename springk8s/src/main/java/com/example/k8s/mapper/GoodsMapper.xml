@@ -159,4 +159,14 @@
     <include refid="Base_Column_List" />
     from goods   ORDER by price DESC
   </select>
+  <!--search-->
+
+  <select id="search"   parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from goods   WHERE goodsname like CONCAT('%', #{condition,jdbcType=VARCHAR}, '%')  OR
+    type like CONCAT('%', #{condition ,jdbcType=VARCHAR}, '%') or
+    detail like CONCAT('%', #{condition ,jdbcType=VARCHAR}, '%')
+  </select>
+
 </mapper>

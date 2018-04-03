@@ -9,7 +9,17 @@ public class IGoodsList implements Serializable {
     private static final long serialVersionUID = 3098678905674934207L;
     private int pageNum;
     private int pageSize;
-    private Integer userId;
+    private Integer userId;//卖家的id
+
+    private String condition;
+
+    public String getCondition() {
+        return condition;
+    }
+
+    public void setCondition(String condition) {
+        this.condition = condition;
+    }
 
     public int getPageNum() {
         return pageNum;
