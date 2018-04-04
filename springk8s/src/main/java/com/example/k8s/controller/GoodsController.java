@@ -127,4 +127,21 @@ public class GoodsController {
             return new ApiResponse(ApiResponse.CODE_OTHER, "获取所有商品信息失败");
         }
     }
+
+    /**
+     * 得到所有商品的信息（这个商品的信息用elasticsearch比较好，暂时用这后面会被替换）
+     * @param iGoodsList
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE,method = RequestMethod.POST)
+    public ApiResponse search(@RequestBody IGoodsList iGoodsList){
+        // https://www.cnblogs.com/xiaoxinwt/p/5329840.html Mybatis 的分页插件PageHelper-4.1.1的使用
+        try {
+            return new SimpleApiResponse(ApiResponse.CODE_SUCCESS, "获取所有商品信息成功", goodsService.search(iGoodsList));
+        } catch (Exception e) {
+            logger.error("/search"+" error, message:{}", e.getMessage());
+            return new ApiResponse(ApiResponse.CODE_OTHER, "获取所有商品信息失败");
+        }
+    }
 }

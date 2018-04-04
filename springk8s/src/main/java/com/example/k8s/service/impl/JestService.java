@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Created by zzg on 2018/4/2.
  */
-@Service(value = "JestService")
+@Service(value = "jestService")
 public class JestService {
 
     /**

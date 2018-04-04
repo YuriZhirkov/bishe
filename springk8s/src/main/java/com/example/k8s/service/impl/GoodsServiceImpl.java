@@ -4,6 +4,7 @@ import com.example.k8s.dto.IGoodsList;
 import com.example.k8s.mapper.GoodsMapper;
 import com.example.k8s.model.Goods;
 import com.example.k8s.service.GoodsService;
+import com.example.k8s.service.MySearchService;
 import com.example.k8s.untils.PageResult;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -20,11 +21,26 @@ import java.util.List;
 @Service(value = "goodsService")
 public class GoodsServiceImpl implements GoodsService {
 
+    private String indexName = "zzg";
+    private String typeName = "goods";
+
     @Autowired
     private GoodsMapper goodsMapper;//这里会报错，但是并不会影响
+
+    @Autowired
+    private MySearchService mySearchService;
+
     @Override
     public int add(Goods goods) {
         goodsMapper.insertSelective(goods);
+        //添加到es中
+        List<Object> list = new ArrayList<>();
+        list.add(goods);
+        try {
+            mySearchService.index(list,indexName,typeName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return goods.getId();
     }
 
@@ -39,6 +55,11 @@ public class GoodsServiceImpl implements GoodsService {
             for (int i=0 ; i < ids.length ; i++) {
                 if (goodsMapper.selectByPrimaryKey(ids[i]) != null){
                     goodsMapper.deleteByPrimaryKey(ids[i]);
+                    try {
+                        mySearchService.delete(indexName,typeName,ids[i].toString());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
@@ -47,6 +68,11 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public void update(Goods goods) {
         goodsMapper.updateByPrimaryKeySelective(goods);
+        try {
+            mySearchService.update(indexName,typeName,goods);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -84,6 +110,21 @@ public class GoodsServiceImpl implements GoodsService {
         pageResult.setItems(recordList);
         return pageResult;
     }
+
+    //搜索
+    @Override
+    public PageResult<Goods> search(IGoodsList iGoodsList) {
+        //将参数传给这个方法就可以实现物理分页了，非常简单。
+        PageResult<Goods> pageResult = null;
+
+        try {
+            pageResult = mySearchService.qurey(indexName,typeName,iGoodsList.getCondition());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return pageResult;
+    }
+
 
 
 }

@@ -2,9 +2,10 @@ package com.example.k8s.untils;
 
 import com.example.k8s.model.Goods;
 import com.example.k8s.service.impl.JestService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.searchbox.client.JestClient;
 import io.searchbox.client.JestResult;
+import io.searchbox.core.Delete;
+import io.searchbox.core.DocumentResult;
 import io.searchbox.core.SearchResult;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -169,6 +170,18 @@ public class ElasticSearchTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+    }
+
+    //删除一个商品
+    @Test
+    public void delete() throws Exception {
+
+        Delete.Builder builder = new Delete.Builder("2");
+        builder.refresh(true);
+        builder.index(indexName);
+        builder.type(typeName);
+        jestClient.execute(builder.build());
 
     }
 

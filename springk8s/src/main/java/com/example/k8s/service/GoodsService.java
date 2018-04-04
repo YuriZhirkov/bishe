@@ -21,4 +21,6 @@ public interface GoodsService {
 
     PageResult<Goods> selectAllGoods(IGoodsList iGoodsList);
 
+    PageResult<Goods> search(IGoodsList iGoodsList);
+
 }
