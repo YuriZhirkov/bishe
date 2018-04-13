@@ -18,11 +18,12 @@
     <result column="postalcode" jdbcType="VARCHAR" property="postalcode" />
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="dispatchingaddress" jdbcType="VARCHAR" property="dispatchingaddress" />
-
+    <result column="state" jdbcType="INTEGER" property="state" />
+    
   </resultMap>
   <sql id="Base_Column_List">
     id, goodsname, price, `describe`, pictures, username, goodsnumber, date, shipaddress,
-    mobile,sellid,buyid,telephone,postalcode,dispatchingaddress,email
+    mobile,sellid,buyid,telephone,postalcode,email,dispatchingaddress,state
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -38,13 +39,13 @@
     insert into orders (id, goodsname, price, 
       `describe`, pictures,
       username, goodsnumber, date, 
-      shipaddress, mobile,sellid,buyid,telephone,postalcode,dispatchingaddress,email)
+      shipaddress, mobile,sellid,buyid,telephone,postalcode,email,dispatchingaddress,state)
     values (#{id,jdbcType=VARCHAR}, #{goodsname,jdbcType=VARCHAR}, #{price,jdbcType=VARCHAR},
       #{describe,jdbcType=VARCHAR}, #{pictures,jdbcType=VARCHAR},
       #{username,jdbcType=VARCHAR}, #{goodsnumber,jdbcType=BIGINT}, #{date,jdbcType=BIGINT},
       #{shipaddress,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR},#{sellid,jdbcType=INTEGER},
-      #{buyid,jdbcType=INTEGER},#{telephone,jdbcType=INTEGER},
-      #{email,jdbcType=VARCHAR},#{dispatchingaddress,jdbcType=VARCHAR},#{postalcode,jdbcType=VARCHAR})
+      #{buyid,jdbcType=INTEGER},#{telephone,jdbcType=INTEGER},#{postalcode,jdbcType=VARCHAR},
+      #{email,jdbcType=VARCHAR},#{dispatchingaddress,jdbcType=VARCHAR},#{state,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.example.k8s.model.Orders" useGeneratedKeys="true" keyProperty="id">
     insert into orders
@@ -85,22 +86,27 @@
       <if test="buyid != null">
         buyid,
       </if>
-
-      <if test="telephone != null">
+	  
+	   <if test="telephone != null">
         telephone,
       </if>
-      <if test="email != null">
-        email,
-      </if>
-
-      <if test="dispatchingaddress != null">
-        dispatchingaddress,
-      </if>
-
-      <if test="postalcode != null">
+	  
+	   <if test="postalcode != null">
         postalcode,
       </if>
-
+     
+	  <if test="email != null">
+        email,
+      </if>
+	  
+	  <if test="dispatchingaddress != null">
+        dispatchingaddress,
+      </if>
+	     
+      <if test="state != null">
+        state,
+      </if>
+      
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -145,6 +151,10 @@
         #{telephone,jdbcType=INTEGER},
       </if>
 
+	  <if test="postalcode != null">
+        #{postalcode,jdbcType=VARCHAR},
+      </if>
+	  
       <if test="email != null">
         #{email,jdbcType=VARCHAR},
       </if>
@@ -153,8 +163,8 @@
         #{dispatchingaddress,jdbcType=VARCHAR},
       </if>
 
-      <if test="postalcode != null">
-        #{postalcode,jdbcType=VARCHAR},
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
       </if>
 
     </trim>
@@ -202,6 +212,10 @@
         telephone = #{telephone,jdbcType=INTEGER},
       </if>
 
+	  <if test="postalcode != null">
+        postalcode = #{postalcode,jdbcType=VARCHAR},
+      </if>
+	  
       <if test="email != null">
         email = #{email,jdbcType=VARCHAR},
       </if>
@@ -210,9 +224,10 @@
         dispatchingaddress = #{dispatchingaddress,jdbcType=VARCHAR},
       </if>
 
-      <if test="postalcode != null">
-        postalcode = #{postalcode,jdbcType=VARCHAR},
+	  <if test="state != null">
+        state = #{state,jdbcType=INTEGER},
       </if>
+      
     </set>
 
     where id = #{id,jdbcType=VARCHAR}
@@ -231,9 +246,10 @@
       sellid = #{sellid,jdbcType=INTEGER},
       buyid = #{buyid,jdbcType=INTEGER},
       telephone = #{telephone,jdbcType=INTEGER},
+	  postalcode = #{postalcode,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
       dispatchingaddress = #{dispatchingaddress,jdbcType=VARCHAR},
-      postalcode = #{postalcode,jdbcType=VARCHAR}
+      state = #{state,jdbcType=INTEGER}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 
