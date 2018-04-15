@@ -28,6 +28,7 @@ public class FileServiceImpl implements FileService{
         String dir = path.substring(path.lastIndexOf("/")+1,path.length());
         FileInputStream fileInputStream = (FileInputStream) multipartFile.getInputStream();
         String fileName = UUID.randomUUID()+ ".png";
+        fileName = fileName.replace("-","");
         BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(path + File.separator + fileName));
         byte[] bs = new byte[1024];
         int len;
