@@ -39,12 +39,20 @@ public class CommentServiceImpl implements CommentService {
         PageResult<Comment> pageResult = new PageResult<>();
         List<Comment> list = new ArrayList<>();
 
-        if (iCommentList.getType() == 0) {
+        if (iCommentList.getType() == 0) { //这个是评论
+            //这是通过goodsid获取某个产品的所有评论
+            if (iCommentList.getGoodsid()!=null && iCommentList.getGoodsid()>0){
+                PageHelper.startPage(iCommentList.getPageNum(), iCommentList.getPageSize());
+                list = commentMapper.selectByGoodsId(iCommentList.getGoodsid());
+            }
+            //这是通过buyid获取买家所卖产品的所有评论
+            if (iCommentList.getBuyid()!=null && iCommentList.getBuyid()>0){
+                PageHelper.startPage(iCommentList.getPageNum(), iCommentList.getPageSize());
+                list = commentMapper.selectByBuyid(iCommentList.getBuyid());
+            }
+        } else { //留言(买家对卖家的评论)
             PageHelper.startPage(iCommentList.getPageNum(), iCommentList.getPageSize());
-            list = commentMapper.selectByGoodsId(iCommentList.getId());
-        } else {
-            PageHelper.startPage(iCommentList.getPageNum(), iCommentList.getPageSize());
-            list = commentMapper.selectBySellId(iCommentList.getId());
+            list = commentMapper.selectBySellId(iCommentList.getSellid());
         }
         PageInfo<Comment> pageInfo = new PageInfo<>(list);
         pageResult.setRecordsTotal(pageInfo.getTotal());

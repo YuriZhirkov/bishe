@@ -6,8 +6,18 @@ package com.example.k8s.dto;
 public class ICommentList {
     private Integer pageNum;
     private Integer pageSize;
-    private Integer id;
+    private Integer sellid;
+    private Integer buyid;
     private Integer type;
+    private Integer goodsid;
+
+    public Integer getGoodsid() {
+        return goodsid;
+    }
+
+    public void setGoodsid(Integer goodsid) {
+        this.goodsid = goodsid;
+    }
 
     public Integer getPageNum() {
         return pageNum;
@@ -25,13 +35,6 @@ public class ICommentList {
         this.pageSize = pageSize;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public Integer getType() {
         return type;
@@ -39,5 +42,21 @@ public class ICommentList {
 
     public void setType(Integer type) {
         this.type = type;
+    }
+
+    public Integer getSellid() {
+        return sellid;
+    }
+
+    public void setSellid(Integer sellid) {
+        this.sellid = sellid;
+    }
+
+    public Integer getBuyid() {
+        return buyid;
+    }
+
+    public void setBuyid(Integer buyid) {
+        this.buyid = buyid;
     }
 }

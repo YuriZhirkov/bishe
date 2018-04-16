@@ -22,4 +22,7 @@ public interface CommentMapper {
     List<Comment> selectByGoodsId(Integer goodsid);
     //通过sellid的查询留言
     List<Comment> selectBySellId(Integer sellid);
+
+    //通过buyid的查询留言
+    List<Comment>  selectByBuyid(Integer userid);
 }
