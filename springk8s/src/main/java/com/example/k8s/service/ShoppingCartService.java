@@ -17,4 +17,6 @@ public interface ShoppingCartService {
     List<Orders> list(IOrderList iOrderList);
     //从购物车中查询某个订单的详情
     Orders get(Integer userId,String goodsid);
+
+    void settlement(List<Orders> orders);
 }

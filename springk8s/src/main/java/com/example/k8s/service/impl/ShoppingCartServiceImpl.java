@@ -1,7 +1,10 @@
 package com.example.k8s.service.impl;
 
 import com.example.k8s.dto.IOrderList;
+import com.example.k8s.mapper.OrdersMapper;
+import com.example.k8s.mapper.UserMapper;
 import com.example.k8s.model.Orders;
+import com.example.k8s.model.User;
 import com.example.k8s.service.ShoppingCartService;
 import com.example.k8s.untils.JsonUtils;
 import com.example.k8s.untils.ListPageUtil;
@@ -20,6 +23,12 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
 
     @Autowired
     private RedisUnits redisUnits;
+
+    @Autowired
+    private UserMapper userMapper;
+
+    @Autowired
+    private OrdersMapper ordersMapper;
 
     @Override
     public void add(Orders orders) {
@@ -96,4 +105,20 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
         }
         return new Orders();
     }
+
+    @Override
+    public void settlement(List<Orders> orders) {
+        //获取用户id;
+        int userId = orders.get(0).getBuyid();
+        User user = userMapper.selectByPrimaryKey(userId);
+        double sum = 0.0;
+        for (Orders os:orders){
+            ordersMapper.insertSelective(os);
+            sum = sum + os.getGoodsnumber()*Integer.parseInt(os.getPrice());
+        }
+        user.setSurplusmoney(user.getSurplusmoney()-(int)sum);
+        userMapper.updateByPrimaryKeySelective(user);
+    }
+
+
 }
