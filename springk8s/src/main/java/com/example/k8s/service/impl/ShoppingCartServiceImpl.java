@@ -47,14 +47,14 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
     }
 
     @Override
-    public void delete(Integer userId, String orderId) {
+    public void delete(Integer userId, String goodsid) {
         String userid = String.valueOf(userId);
         String json = (String) redisUnits.getValue(userid);
         //解析json字符串
         List<Orders> ordersList = JsonUtils.jsonToList(json,Orders.class);
         if (ordersList != null && ordersList.size()>0){
             for (Orders orders:ordersList){
-                if (userId.equals(orders.getBuyid()) && orderId.equals(orders.getId())){
+                if (userId.equals(orders.getBuyid()) && goodsid.equals(orders.getGoodsid())){
                     ordersList.remove(orders);
                     break;
                 }
@@ -82,14 +82,14 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
     }
 
     @Override
-    public Orders get(Integer userId, String orderId) {
+    public Orders get(Integer userId, String goodsid) {
         String userid = String.valueOf(userId);
         String json = (String) redisUnits.getValue(userid);
         //解析json字符串
         List<Orders> ordersList = JsonUtils.jsonToList(json,Orders.class);
         if (ordersList != null && ordersList.size()>0) {
             for (Orders orders : ordersList) {
-                if (userId.equals(orders.getBuyid()) && orderId.equals(orders.getId())) {
+                if (userId.equals(orders.getBuyid()) && goodsid.equals(orders.getGoodsid())) {
                     return orders;
                 }
             }

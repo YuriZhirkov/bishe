@@ -3,6 +3,8 @@ package com.example.k8s.model;
 public class Orders {
     private String id;
 
+    private String goodsid;
+
     private String goodsname;
 
     private String price;
@@ -34,6 +36,15 @@ public class Orders {
     private String postalcode;
 
     private Integer state;
+
+
+    public String getGoodsid() {
+        return goodsid;
+    }
+
+    public void setGoodsid(String goodsid) {
+        this.goodsid = goodsid;
+    }
 
     public Integer getState() {
         return state;

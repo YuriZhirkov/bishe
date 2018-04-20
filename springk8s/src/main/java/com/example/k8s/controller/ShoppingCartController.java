@@ -58,7 +58,7 @@ public class ShoppingCartController {
             return new ApiResponse(ApiResponse.CODE_PARAMETER_ERROR, "参数不能为空");
         }
         try {
-            shoppingCartService.delete(iOrderRedis.getUserId(),iOrderRedis.getOrderId());
+            shoppingCartService.delete(iOrderRedis.getUserId(),iOrderRedis.getGoodsid());
             return new SimpleApiResponse(ApiResponse.CODE_SUCCESS, "删除成功");
         } catch (Exception e) {
             logger.error("/bonsai/Orders/delete error, message:{}", e.getMessage());
@@ -76,7 +76,7 @@ public class ShoppingCartController {
     @RequestMapping(value = "/get", produces = MediaType.APPLICATION_JSON_VALUE,method = RequestMethod.GET)
     public ApiResponse get(@RequestBody IOrderRedis iOrderRedis){
         try {
-            return new SimpleApiResponse(ApiResponse.CODE_SUCCESS, "获取订单信息成功",shoppingCartService.get(iOrderRedis.getUserId(),iOrderRedis.getOrderId()));
+            return new SimpleApiResponse(ApiResponse.CODE_SUCCESS, "获取订单信息成功",shoppingCartService.get(iOrderRedis.getUserId(),iOrderRedis.getGoodsid()));
         } catch (Exception e) {
             logger.error("/bonsai/orders/get/{id} error, message:{}", e.getMessage());
             return new ApiResponse(ApiResponse.CODE_OTHER, "未知错误，获取订单信息失败");

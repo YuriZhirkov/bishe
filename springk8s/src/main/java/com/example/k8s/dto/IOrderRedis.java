@@ -6,7 +6,7 @@ package com.example.k8s.dto;
 public class IOrderRedis {
     private Integer userId;
 
-    private String orderId;
+    private String goodsid;
 
     public Integer getUserId() {
         return userId;
@@ -16,11 +16,11 @@ public class IOrderRedis {
         this.userId = userId;
     }
 
-    public String getOrderId() {
-        return orderId;
+    public String getGoodsid() {
+        return goodsid;
     }
 
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
+    public void setGoodsid(String goodsid) {
+        this.goodsid = goodsid;
     }
 }
