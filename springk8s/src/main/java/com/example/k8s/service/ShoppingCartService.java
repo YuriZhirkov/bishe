@@ -19,4 +19,6 @@ public interface ShoppingCartService {
     Orders get(Integer userId,String goodsid);
 
     void settlement(List<Orders> orders);
+    //清除一个用户购物车里的所有订单
+    void deleteAll(Integer userId);
 }

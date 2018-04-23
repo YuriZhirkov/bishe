@@ -9,6 +9,7 @@ import com.example.k8s.service.ShoppingCartService;
 import com.example.k8s.untils.JsonUtils;
 import com.example.k8s.untils.ListPageUtil;
 import com.example.k8s.untils.RedisUnits;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +35,13 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
     public void add(Orders orders) {
         String userid = String.valueOf(orders.getBuyid());
         String json = (String) redisUnits.getValue(userid);
+        if (StringUtils.isBlank(json)){
+            List<Orders> ordersList = new ArrayList<>();
+            ordersList.add(orders);
+            String ret = JsonUtils.objectToJson(ordersList);
+            redisUnits.setValue(userid,ret);
+
+        }
         //解析json字符串
         List<Orders> ordersList = JsonUtils.jsonToList(json,Orders.class);
         if (ordersList == null || ordersList.size()<=0){
@@ -42,12 +50,6 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
             String ret = JsonUtils.objectToJson(ordersList);
             redisUnits.setValue(userid,ret);
         } else {
-            for (Orders orders1:ordersList){
-                if (orders1.getBuyid().equals(orders.getBuyid()) && orders1.getId().equals(orders.getId())){
-                    ordersList.remove(orders1);
-                    break;
-                }
-            }
             ordersList.add(orders);
             String ret = JsonUtils.objectToJson(ordersList);
             redisUnits.setValue(userid,ret);
@@ -118,6 +120,11 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
         }
         user.setSurplusmoney(user.getSurplusmoney()-(int)sum);
         userMapper.updateByPrimaryKeySelective(user);
+    }
+
+    @Override
+    public void deleteAll(Integer userId) {
+        redisUnits.setValue(String.valueOf(userId),"");
     }
 
 

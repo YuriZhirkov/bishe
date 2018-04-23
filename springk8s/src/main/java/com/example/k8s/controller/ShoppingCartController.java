@@ -134,5 +134,23 @@ public class ShoppingCartController {
         }
     }
 
+    /**
+     * 删除购物车中的所有订单
+     *
+     * @param userId
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/deleteAll", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+    public ApiResponse delete( @RequestParam("userId")  Integer userId ) {
+        try {
+            shoppingCartService.deleteAll(userId);
+            return new SimpleApiResponse(ApiResponse.CODE_SUCCESS, "删除成功");
+        } catch (Exception e) {
+            logger.error("/bonsai/Orders/deleteAll error, message:{}", e.getMessage());
+            return new ApiResponse(ApiResponse.CODE_OTHER, "未知错误，删除失败");
+        }
+    }
+
 
 }
