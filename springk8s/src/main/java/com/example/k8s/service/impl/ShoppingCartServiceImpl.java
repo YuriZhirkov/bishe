@@ -13,6 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,6 +53,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         } else {
             for (Orders od : ordersList) {
                 if (od.getBuyid().equals(orders.getBuyid())  && od.getGoodsid().equals(orders.getGoodsid())){
+                    orders.setGoodsnumber(orders.getGoodsnumber()+od.getGoodsnumber());
                     ordersList.remove(od);
                     break;
                 }
