@@ -42,15 +42,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             String ret = JsonUtils.objectToJson(ordersList);
             redisUnits.setValue(userid, ret);
 
-        }
-        //解析json字符串
-        List<Orders> ordersList = JsonUtils.jsonToList(json, Orders.class);
-        if (ordersList == null || ordersList.size() <= 0) {
-            ordersList = new ArrayList<>();
-            ordersList.add(orders);
-            String ret = JsonUtils.objectToJson(ordersList);
-            redisUnits.setValue(userid, ret);
         } else {
+            List<Orders> ordersList = JsonUtils.jsonToList(json, Orders.class);
             for (Orders od : ordersList) {
                 if (od.getBuyid().equals(orders.getBuyid())  && od.getGoodsid().equals(orders.getGoodsid())){
                     orders.setGoodsnumber(orders.getGoodsnumber()+od.getGoodsnumber());
@@ -70,18 +63,24 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         String userid = String.valueOf(userId);
         String json = (String) redisUnits.getValue(userid);
         //解析json字符串
-        List<Orders> ordersList = JsonUtils.jsonToList(json, Orders.class);
-        if (ordersList != null && ordersList.size() > 0) {
-            for (Orders orders : ordersList) {
-                if (userId.equals(orders.getBuyid()) && goodsid.equals(orders.getGoodsid())) {
-                    ordersList.remove(orders);
-                    break;
+        if (StringUtils.isNotBlank(json)){
+            List<Orders> ordersList = JsonUtils.jsonToList(json, Orders.class);
+            if (ordersList != null && ordersList.size() > 0) {
+                for (Orders orders : ordersList) {
+                    if (userId.equals(orders.getBuyid()) && goodsid.equals(orders.getGoodsid())) {
+                        ordersList.remove(orders);
+                        break;
+                    }
                 }
-            }
-            String ret = JsonUtils.objectToJson(ordersList);
-            redisUnits.setValue(userid, ret);
+                if (ordersList == null || ordersList.size()<=0){
+                    redisUnits.setValue(userid, null);
+                }
+                String ret = JsonUtils.objectToJson(ordersList);
+                redisUnits.setValue(userid, ret);
 
+            }
         }
+
 
     }
 
@@ -90,6 +89,9 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         String userid = String.valueOf(iOrderList.getBuyid());
         String json = (String) redisUnits.getValue(userid);
         //解析json字符串
+        if (StringUtils.isBlank(json)){
+            return new ArrayList<>();
+        }
         List<Orders> ordersList = JsonUtils.jsonToList(json, Orders.class);
         ListPageUtil<Orders> listPageUtil = new ListPageUtil<Orders>(ordersList, iOrderList.getPageNum(), iOrderList.getPageSize());
         List<Orders> pagedList = listPageUtil.getPagedList();
@@ -104,6 +106,9 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     public Orders get(Integer userId, String goodsid) {
         String userid = String.valueOf(userId);
         String json = (String) redisUnits.getValue(userid);
+        if (StringUtils.isBlank(json)){
+            return null;
+        }
         //解析json字符串
         List<Orders> ordersList = JsonUtils.jsonToList(json, Orders.class);
         if (ordersList != null && ordersList.size() > 0) {
@@ -132,7 +137,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public void deleteAll(Integer userId) {
-        redisUnits.setValue(String.valueOf(userId), "");
+        redisUnits.setValue(String.valueOf(userId), null);
     }
 
 
